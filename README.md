@@ -1,40 +1,62 @@
+# HAL — Python Dependency Hell, Finally Fixed
 
-# HAL - Python Dependency Hell, Finally Fixed
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**HAL wins where pip struggles.**
+An AI-powered pip wrapper that detects Python dependency conflicts and attempts to fix them automatically.
 
-`hal add requests` - If there's a conflict, HAL auto-fixes it with AI or heuristics.
+## The Problem
 
-### For 50 Million Developers
+Python's dependency management has been a well-documented pain point for over a decade. When two packages require conflicting versions of the same dependency, `pip` throws a confusing error — and the developer is left to manually figure out what's wrong and how to fix it.
+
+**HAL automates that process:**
+- Detects conflicts (built on top of `pip check`)
+- Uses AI (Groq API) to explain the error in plain language
+- Attempts an automatic fix — e.g., upgrading a conflicting package to a compatible version
+
+## Installation
 
 ```bash
 pip install hal-ai
-hal init
-hal add numpy
-hal add pandas
-hal doctor
 ```
 
-### Why HAL?
-- Normal `pip install` fails on conflicts -> HAL fixes them
-- Works WITHOUT AI key (heuristic mode) for 50M users
-- Works WITH ANY AI key (Groq free, OpenAI, Gemini, Claude, OpenRouter, Ollama, etc)
+## Usage
 
-### AI Keys (any one, all optional)
-```
-GROQ_API_KEY=gsk_... (free, fast)
-OPENAI_API_KEY=sk-...
-GEMINI_API_KEY=AIza...
-ANTHROPIC_API_KEY=sk-ant-...
-OPENROUTER_API_KEY=sk-or-...
-OR generic:
-AI_API_KEY=xxx
-AI_BASE_URL=https://api.openrouter.ai/api/v1
-AI_MODEL=llama-3.3-70b-versatile
+```bash
+hal init              # set up a new project (venv + pyproject.toml)
+hal add <package>       # install a package; HAL will try to resolve conflicts
+hal doctor               # check for conflicts
+hal doctor --fix         # attempt to auto-fix conflicts
 ```
 
-### How it beats pip?
-pip: "ERROR: Cannot install because..."
-HAL: "Conflict detected -> Fixing httpx==0.13.3 -> SUCCESS!"
+## Example
 
-Built by Hassaan from Bahawalpur for 50M devs.
+```
+$ hal doctor --fix
+HAL Doctor --fix mode (SMART)
+googletrans 3.1.0a0 has requirement httpx==0.13.3, but you have httpx 0.27.2.
+
+HAL SMART FIX: googletrans is outdated, upgrading it...
+HAL is resolving: googletrans==4.0.0rc1...
+SUCCESS: googletrans==4.0.0rc1 installed!
+```
+
+## AI Setup
+
+To enable AI-powered explanations and fixes, you'll need a free Groq API key (get one at console.groq.com):
+
+```bash
+# Windows PowerShell
+$env:GROQ_API_KEY="your_key_here"
+
+# Mac/Linux
+export GROQ_API_KEY="your_key_here"
+```
+
+## Status
+
+Early-stage working prototype. Core features (install, conflict detection, AI-assisted resolution) are tested and functional. Feedback and contributions welcome.
+
+## License
+
+MIT
