@@ -1,0 +1,35 @@
+
+[project]
+name = "hal-ai"
+version = "0.1.0"
+description = "HAL - Python dependency hell, finally fixed. AI-powered pip that actually works. For 50 million developers."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Hassaan Ghaffar"}]
+keywords = ["pip", "dependencies", "ai", "resolver", "python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "requests>=2.31.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/hassaan/hal-ai"
+Repository = "https://github.com/hassaan/hal-ai"
+
+[project.scripts]
+hal = "hal.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["hal"]
