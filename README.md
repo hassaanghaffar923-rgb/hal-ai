@@ -1,5 +1,5 @@
 # HAL — Python Dependency Hell, Finally Fixed
-
+![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue) ![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
 An AI-powered pip wrapper that detects Python dependency conflicts and attempts to fix them automatically.
 
 ## The Problem
